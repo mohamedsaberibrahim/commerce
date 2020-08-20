@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<h2>{{ listing.title }}</h2>
+    <div class="list-group align-items-center">
+            <img src="{{ listing.imageUrl }}" width="320" height="360">
+            <hr>
+            <b>{{ listing.description }}</b>
+            <hr>
+            <p>Current Price: <b>{{ listing.currentPrice }}$ </b> ({{ bids.count }})s bids so far!</p>
+            {% if listing.category %}
+                <p>Category: <a href="{% url 'category' listing.category.id %}">{{ listing.category }}</a></p>
+            {% else %}
+                <p>Category: No category.</p>
+            {% endif %}
+            
+    </div>
+    <form class="align-items-right" action="{% url 'bid' listing.id %}" method="post">
+        {% csrf_token %}
+        {{ bidForm|crispy }}
+        <input type="submit" value="Bid now" class="btn btn-dark" style="float: right;">
+    </form>
+{% endblock %}

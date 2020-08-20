@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories</h2>
+    <div class="list-group">
+        {% for category in categories %}
+            <a href="{% url 'category' category.id %}" class="list-group-item list-group-item-action flex-column align-items-center">
+                <div class="d-flex justify-content-around">
+                    <img src="{{ category.imageUrl }}" width="150" height="180">
+                </div>
+                <div class="d-flex justify-content-around">
+                    <h5 class="mb-1">{{ category.name }}</h5>
+                </div>
+                <div class="d-flex w-100 justify-content-end">
+                    <small>Created on {{ category.createDate }}</small>
+                </div>
+            </a>
+        {% empty %}
+            No categories.
+        {% endfor %}
+    </div>
+    
+{% endblock %}
